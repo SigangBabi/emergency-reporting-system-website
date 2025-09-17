@@ -1,0 +1,230 @@
+body{
+    background-image: url("Assets/BGB.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.background-blur {
+    position: fixed;
+    width: 100%;
+    top: 0%;
+    left: 0%;
+    height: 100%;
+    backdrop-filter: blur(3px);
+    background: linear-gradient(to right, rgba(0, 155, 214,0.3), rgba(255, 223, 34, 0.3)); 
+    z-index: -1;
+}
+
+.login-container {
+    height: 45rem;
+    width: 90rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+}
+
+.login-box {
+    height: 100%;
+    border-radius: 15px;
+    width: 50%;
+    float: left;
+    display: flex;
+}
+
+.login-box h1 {
+    font-family: Arial, sans-serif;
+    letter-spacing: 2px;
+    font-size: 80px;
+    background: linear-gradient(to right, rgba(0, 155, 214), rgba(255, 223, 34)); 
+    color: transparent;
+    background-clip: text;
+    text-align: center;
+    margin-top: 40px;
+    text-shadow:  0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 5rem;
+    left: 3%;
+}
+
+.login-box h2{
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-top: 150px;
+    position: absolute;
+    top: 4rem;
+    left: 3%;
+}
+
+.login-box form {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    height: 100%;
+    width: 40%;
+    margin-top: 3rem;
+    padding: 20px;
+    box-sizing: border-box;
+    left: 2%;
+    position: absolute;
+}
+
+.login-box form input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 1rem 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+.login-box form input:focus {
+    border-color: #007BFF;
+    color: black;
+    outline: none;
+}
+
+.login-box form input:focus::placeholder{
+    color: transparent;
+    transition: all 0.3s ease;
+}
+
+.login-box span {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #555;
+    opacity: 0;
+    margin-left: 10px;
+}
+
+.login-box input.inputEmail:focus ~ span.email {
+    opacity: 1;
+    width: 10rem;
+    text-align: center;
+    color: #007BFF;
+    font-weight: bolder;
+    position: absolute;
+    background-color: rgba(255, 255, 255);
+    top: 16rem;
+    left: 2rem;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.login-box input.inputPass:focus ~ span.password {
+    opacity: 1;
+    width: 6rem;
+    text-align: center;
+    color: #007BFF;
+    font-weight: bolder;
+    position: absolute;
+    background-color: rgba(255, 255, 255);
+    top: 21.8rem;
+    left: 2rem;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.login-box button {
+    width: 10rem;
+    border: none;
+    height: 3rem;
+    font-size: 15px;
+    font-weight: bolder;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 223, 34);
+    cursor: pointer;
+}
+
+.login-box input:hover{
+    border-color: rgba(255, 223, 34);
+    transition: all 0.3s ease;
+}
+
+.login-box button:hover {
+    background-color: aquamarine;
+    font-size: 17px;
+    transition: all 0.3s ease;
+}
+
+.login-img {
+    height: 100%;
+    border-radius: 15px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-size: cover;
+    font-size: 24px;
+    background-position: center;
+    color: #333;
+    background-image: url("Assets/BGB.jpeg");
+    
+}
+
+.logo-container img{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 15px;
+    width: 60%;
+    height: 100%;
+    margin-left: 150px;
+}
+
+.logo-container img:hover{
+    transform: scale(1.1);
+    transition: all 0.5s ease;
+}
+
+.login-box .register{
+    position: absolute;
+    text-align: center;
+    width: 20%;
+    height: 30%;
+    bottom: 0;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    background-color: rgba(255,255,255,0.3);
+    left: 23rem;
+}
+
+.register h3{
+    font-family:monospace;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.register a{
+    text-decoration: none;
+    color: black;
+    font-weight: bolder;
+    background-color: aquamarine;
+    padding: 20px 35px;
+    border-radius: 10px;
+    font-family: monospace;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.register a:hover{
+    background-color: blue;
+    color: beige;
+    font-size: 15px;
+    transition: all 0.5s ease;
+}
+
+.register p{
+    margin-top: 30px;
+}

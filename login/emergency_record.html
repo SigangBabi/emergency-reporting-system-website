@@ -1,0 +1,225 @@
+<?php
+// emergency_record.php
+session_start();
+include 'cfg/dbconnect.php';
+
+// Fetch all emergency reports, newest first
+$sql = "SELECT id, name, location, type, details, created_at, status
+        FROM emergency_reports
+        ORDER BY created_at DESC";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel - Emergency Record</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #333333;
+    }
+
+    .sidebar {
+      width: 220px;
+      height: 100vh;
+      background-color: #b71c1c;
+      position: fixed;
+      left: 0;
+      top: 0;
+      padding-top: 20px;
+      color: #ffffff;
+    }
+
+    .sidebar .logo img {
+      width: 150px;
+      display: block;
+      margin: 0 auto 20px auto;
+      filter: brightness(0) invert(1);
+    }
+
+    .sidebar a {
+      display: block;
+      color: #ffffff;
+      padding: 15px 20px;
+      text-decoration: none;
+      transition: 0.3s;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .sidebar a.active,
+    .sidebar a:hover {
+      background-color: #f44336;
+    }
+
+    .sidebar-line {
+      height: 1px;
+      background: #ef9a9a;
+      margin: 10px 0;
+    }
+
+    .container {
+      margin-left: 220px;
+      padding: 20px;
+    }
+
+    .header {
+      background-color: #ffcdd2;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      color: #b71c1c;
+    }
+
+    .img-case img {
+      height: 35px;
+      width: 35px;
+      border-radius: 50%;
+      border: 2px solid #b71c1c;
+    }
+
+    .dashboard-content h2 {
+      color: #b71c1c;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table, th, td {
+      border: 1px solid #b71c1c;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      color: #b71c1c;
+    }
+
+    th {
+      background-color: #ffcdd2;
+      font-weight: 700;
+    }
+
+    .action-btn {
+      display: inline-block;
+      padding: 5px 10px;
+      margin-right: 5px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .accept-btn {
+      background-color: #4caf50;
+    }
+
+    .reject-btn {
+      background-color: #ff9800;
+    }
+
+    .detail-btn {
+      background-color: #2196f3;
+    }
+
+    .delete-btn {
+      background-color: #f44336;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <div class="logo">
+      <img src="logo.png" alt="Logo" />
+    </div>
+    <div class="sidebar-line"></div>
+    <a href="dashboard.php">🏠 Dashboard</a>
+    <a class="active" href="emergency_record.php">📋 Emergency Record</a>
+    <a href="sms_record.php">📨 SMS Record</a>
+    <a href="users.php">👥 Users</a>
+    <a href="settings.php">⚙️ Settings</a>
+    <a href="logout.php">🚪 Logout</a>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="img-case">
+        <img src="user.png" alt="User" />
+      </div>
+    </div>
+
+    <div class="dashboard-content">
+      <h2>Emergency Record</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Num#</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Type of Emergency</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if ($result->num_rows > 0): ?>
+            <?php while($row = $result->fetch_assoc()): ?>
+            <tr>
+              <td><?= htmlspecialchars($row['id']) ?></td>
+              <td><?= htmlspecialchars($row['name']) ?></td>
+              <td><?= htmlspecialchars($row['location']) ?></td>
+              <td><?= htmlspecialchars(str_replace('_', ' ', $row['type'])) ?></td>
+              <td><?= htmlspecialchars($row['details']) ?></td>
+              <td><?= htmlspecialchars($row['created_at']) ?></td>
+              <td><?= htmlspecialchars($row['status']) ?></td>
+              <td>
+                <?php if ($row['status'] === 'pending'): ?>
+                  <a
+                    class="action-btn accept-btn"
+                    href="emergency_update_status.php?id=<?= $row['id'] ?>&action=accept"
+                    onclick="return confirm('Accept this report?')"
+                  >Accept</a>
+                  <a
+                    class="action-btn reject-btn"
+                    href="emergency_update_status.php?id=<?= $row['id'] ?>&action=reject"
+                    onclick="return confirm('Reject this report?')"
+                  >Reject</a>
+                <?php endif; ?>
+
+                <a
+                  class="action-btn detail-btn"
+                  href="emergency_detail.php?id=<?= $row['id'] ?>"
+                >Detail</a>
+
+                <a
+                  class="action-btn delete-btn"
+                  href="emergency_delete.php?id=<?= $row['id'] ?>"
+                  onclick="return confirm('Delete this report?')"
+                >Delete</a>
+              </td>
+            </tr>
+            <?php endwhile; ?>
+          <?php else: ?>
+            <tr><td colspan="8" style="text-align:center;">No records found.</td></tr>
+          <?php endif; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>

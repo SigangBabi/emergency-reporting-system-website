@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+  <title>Admin Panel - Dashboard</title>
+  <link href="dashboard.css" rel="stylesheet"> <!-- Link external CSS stylesheet -->
+</head>
+<body>
+  <!-- Sidebar navigation panel -->
+  <div class="side-panel">
+    <!-- Profile section -->
+    <div class="profile-container">
+      <img src="assets/profile-icon.png" alt=""> <!-- Profile icon -->
+      <div class="profile-name">
+        <h1>Jule Andre Evaristo</h1> <!-- Admin name -->
+        <p>Administrator</p> <!-- User role -->
+      </div>
+    </div>
+
+    <!-- General navigation links -->
+    <div class="general-panel">
+      <h3>General</h3>
+      <hr>
+      <div class="nav-btn">
+        <a href="dashboard.html">🏠 Dashboard</a> <!-- Dashboard link -->
+        <a href="" id="open-metrics">📋 Metrics</a> <!-- Metrics link -->
+        <a href="">👥 Users</a> <!-- Users management link -->
+        <a href="settings.html">⚙️ Settings</a> <!-- Settings link -->
+      </div>  
+    </div>
+
+    <!-- Logout button -->
+    <div class="logout">
+      <a href="#">🚪 Logout</a>
+    </div>
+  </div>
+
+  <!-- Main content body -->
+  <div id="body-container">
+    <!-- Page header -->
+    <div class="profile-header">
+      <h1>Registered Users</h1>
+    </div>
+
+    <!-- User data table -->
+    <div class="user-container">
+      <table>
+        <thead>
+          <th>ID No.</th>
+          <th id="name">Name</th>
+          <th id="location">Location</th>
+          <th id="mobile">Mobile No.</th>
+          <th id="email">Email</th>
+          <th id="status">Status</th>
+          <th>Action</th>
+        </thead>
+        <tbody>
+          <!-- Example user entry -->
+          <tr>
+            <td>1</td> <!-- User ID -->
+            <td>Jule Andre Evaristo</td> <!-- User name -->
+            <td>MARIA SANTOS, 123 LOPEZ STREET, BARANGAY KAPITAN KILYONG, QUEZON CITY, 1101 METRO MANILA, PHILIPPINES</td> <!-- User location -->
+            <td>09999999999</td> <!-- Mobile number -->
+            <td>testemail@email.com</td> <!-- Email address -->
+            <td>Not Verified</td> <!-- Verification status -->
+            <td>
+              <button>Delete</button> <!-- Delete action -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div> 
+
+  <!-- External JavaScript file -->
+  <script src="dashboard.js"></script>
+</body>
+</html>

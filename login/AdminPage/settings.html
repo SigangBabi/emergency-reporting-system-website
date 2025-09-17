@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+  <title>Admin Panel - Dashboard</title>
+  <link href="dashboard.css" rel="stylesheet"> <!-- External CSS stylesheet -->
+</head>
+<body>
+  <!-- Sidebar panel for navigation and profile -->
+  <div class="side-panel">
+    <!-- Admin profile section -->
+    <div class="profile-container">
+      <img src="assets/profile-icon.png" alt=""> <!-- Profile image -->
+      <div class="profile-name">
+        <h1>Jule Andre Evaristo</h1> <!-- Admin full name -->
+        <p>Administrator</p> <!-- Admin role -->
+      </div>
+    </div>
+
+    <!-- Navigation section -->
+    <div class="general-panel">
+      <h3>General</h3>
+      <hr>
+      <div class="nav-btn">
+        <a href="dashboard.html">🏠 Dashboard</a> <!-- Dashboard page -->
+        <a href="" id="open-metrics">📋 Metrics</a> <!-- Metrics page -->
+        <a href="usersList.html">👥 Users</a> <!-- Users list page -->
+        <a href="">⚙️ Settings</a> <!-- Settings page (current) -->
+      </div>  
+    </div>
+
+    <!-- Logout button -->
+    <div class="logout">
+      <a href="#">🚪 Logout</a>
+    </div>
+  </div>
+
+  <!-- Main body container -->
+  <div id="body-container">
+    <!-- Settings header -->
+    <div class="settings-header">
+        <h1>Settings</h1>
+    </div>
+
+    <!-- Settings content container -->
+    <div class="settings-container">
+        <!-- Section for updating personal information -->
+        <div class="updt-personal">
+            <h2>Change Information</h2>
+            <form action="#" method="post"> <!-- Form for updating personal details -->
+                <p>Name:</p>
+                <input type="text"> <!-- Input field for name -->
+                <p>Role:</p>
+                <input type="text"> <!-- Input field for role -->
+                <p>Mobile No.:</p>
+                <input type="text"> <!-- Input field for mobile number -->
+                <p>Email Address:</p>
+                <input type="email"> <!-- Input field for email -->
+                <p>Change Profile Photo</p>
+                <input type="file"><br> <!-- File upload for profile photo -->
+                <input type="checkbox" name="sms"> <!-- Checkbox for SMS notifications -->
+                <label for="sms">Receive SMS Notification</label><br> <!-- Checkbox label -->
+                <input type="submit"> <!-- Submit button for form -->
+            </form>
+        </div>
+
+        <!-- Section for updating login credentials -->
+        <div class="updt-personal">
+            <h2>Change Login Credentials</h2>
+            <form action="#" method="post"> <!-- Form for updating login details -->
+                <p>Username:</p>
+                <input type="text"> <!-- Input field for username -->
+                <p>Password:</p>
+                <input type="password"> <!-- Input field for password -->
+                <p>Confirm Password:</p>
+                <input type="password"> <!-- Input field for password confirmation -->
+                <div id="change">
+                  <input type="submit" value="Save Changes"> <!-- Submit button for login changes -->
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+
+  <!-- External JavaScript file -->
+  <script src="dashboard.js"></script>
+</body>
+</html>

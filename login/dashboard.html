@@ -1,0 +1,75 @@
+<?php
+// dashboard.php
+session_start();
+include 'cfg/dbconnect.php';
+
+// Get total counts
+$reportRes = $conn->query("SELECT COUNT(*) AS total_reports FROM emergency_reports");
+$reportCount = $reportRes->fetch_assoc()['total_reports'];
+
+$smsRes = $conn->query("SELECT COUNT(*) AS total_sms FROM sms_alert");
+$smsCount = $smsRes->fetch_assoc()['total_sms'];
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel - Dashboard</title>
+  <style>
+    body { margin:0; font-family:Arial,sans-serif; background:#fff; color:#333; }
+    .sidebar { width:220px; height:100vh; background:#b71c1c; position:fixed; top:0; left:0; padding-top:20px; }
+    .sidebar .logo img { width:150px; margin:0 auto 20px; display:block; filter:brightness(0) invert(1); }
+    .sidebar a { color:#fff; display:block; padding:15px 20px; text-decoration:none; font-weight:600; }
+    .sidebar a.active, .sidebar a:hover { background:#f44336; }
+    .container { margin-left:220px; padding:20px; }
+    .header { background:#ffcdd2; padding:15px; border-radius:8px; margin-bottom:20px; display:flex; justify-content:flex-end; align-items:center; color:#b71c1c; }
+    .img-case img { width:35px; height:35px; border-radius:50%; border:2px solid #b71c1c; }
+    .dashboard-content { background:#fff1f0; padding:20px; border-radius:10px; box-shadow:0 2px 8px rgba(183,28,28,0.3); }
+    .dashboard-content h2 { color:#b71c1c; margin-bottom:15px; }
+    table { width:100%; border-collapse:collapse; }
+    th, td { border:1px solid #b71c1c; padding:10px; text-align:left; color:#b71c1c; }
+    th { background:#ffcdd2; font-weight:700; }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo"><img src="logo.png" alt="Logo"></div>
+    <a class="active" href="dashboard.php">🏠 Dashboard</a>
+    <a href="emergency_record.php">📋 Emergency Record</a>
+    <a href="sms_record.php">📨 SMS Record</a>
+    <a href="users.php">👥 Users</a>
+    <a href="settings.php">⚙️ Settings</a>
+    <a href="logout.php">🚪 Logout</a>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="img-case"><img src="user.png" alt="User"></div>
+    </div>
+    <div class="dashboard-content">
+      <h2>Dashboard Summary</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Emergency Reports</td>
+            <td><?= htmlspecialchars($reportCount) ?></td>
+          </tr>
+          <tr>
+            <td>SMS Alerts</td>
+            <td><?= htmlspecialchars($smsCount) ?></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
