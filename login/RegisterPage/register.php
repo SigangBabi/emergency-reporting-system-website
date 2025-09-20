@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="register.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Registration</title>
 </head>
 <body>
@@ -44,6 +45,7 @@
                         $userEmail = $_POST['email'];
                         $userPassword = $_POST['password'];
                         $confirmPassword = $_POST['confirm'];
+                        $hashedPassword = password_hash($userPassword, PASSWORD_DEFAULT);
 
                         $checkEmail = "SELECT * From user_info where email='$userEmail'";
                         $checkResult = $connection->query($checkEmail);
@@ -54,7 +56,7 @@
                             echo "<p id=\"callback\">Email Already Exist!</p>";
                         }else{
                             $insertUserInfo = "INSERT INTO user_info(email, password, name  )
-                                                VALUES ('$userEmail', '$userPassword', '$fullName')";
+                                                VALUES ('$userEmail', '$hashedPassword', '$fullName')";
                             if($connection->query($insertUserInfo)==TRUE){
                                 header("location: register.php?status=success");
                                 exit();
@@ -83,7 +85,6 @@
     
     <!-- Check Registration Status -->
     <div id="php-status" data-status="<?php echo isset($_GET['status']) ? $_GET['status'] : ''; ?>"></div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="register.js"></script>
 </body>
 </html>

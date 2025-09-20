@@ -1,3 +1,10 @@
+<?php
+
+    include '../connect.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,13 +21,44 @@
         <div class="login-box">
             <h1>WELCOME!</h1>
             <h2>Log in to Access Emergency Reporting</h2>
-            <form action="login.html" method="post">
-                <input type="text" class="inputEmail" placeholder="Email" required/>
+            <form action="" method="post">
+                <input type="email" class="inputEmail" placeholder="Email" name="email" id="email" required/>
                 <span class="email">Email / Mobile No.</span>
-                <input type="password" class="inputPass" placeholder="Password" required/>
+                <input type="password" class="inputPass" placeholder="Password" name="password" id="password" required/>
                 <span class = "password">Password</span>
-                <button type="submit" name="login">Login</button>
+                <button type="submit" name="login" id="login" name="login">Login</button>
             </form>
+
+            <?php
+
+                if(isset($_POST['login'])){
+                    $email = $_POST['email'];
+                    $password = $_POST['password'];
+
+                    $verifyEmail = "SELECT * FROM user_info WHERE email = '$email'";
+                    $verifyResult = $connection->query($verifyEmail);
+
+                    if($verifyResult->num_rows>0) {
+                        $row = $verifyResult->fetch_assoc();
+
+                        if (password_verify($password, $row['password'])) {
+                            session_start();
+                            $_SESSION['name']= $row['name'];
+                            header("Location: ../HomePage/homePage.html");
+                            exit();
+                        }elseif(!password_verify($password, $row['password'])){
+                            echo "<script>alert('Invalid Login Credentials')</script>";
+                        }else{
+                            echo "<script>alert('Unexpected Error Occured, Try Again Later')</script>";;
+                        }
+                    }
+                }
+
+            
+            
+            ?>
+
+
         <div class="register">
             <h3>Not Registered?</h3>
             <a href="../RegisterPage/register.php">Click Here!</a><p>To Register Now!</p>
@@ -32,7 +70,5 @@
             </div>
         </div>
     </div>
-    
-
 </body>
 </html>
