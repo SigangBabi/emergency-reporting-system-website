@@ -19,11 +19,11 @@
                 <span class="email">Email / Mobile No.</span>
                 <input type="password" class="inputPass" placeholder="Password" required/>
                 <span class = "password">Password</span>
-                <button type="submit">Login</button>
+                <button type="submit" name="login">Login</button>
             </form>
         <div class="register">
             <h3>Not Registered?</h3>
-            <a href="../RegisterPage/register.html">Click Here!</a><p>To Register Now!</p>
+            <a href="../RegisterPage/register.php">Click Here!</a><p>To Register Now!</p>
         </div>    
         </div>
         <div class="login-img">
