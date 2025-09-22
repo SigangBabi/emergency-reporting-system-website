@@ -118,10 +118,10 @@ button:active{
     color: black;
 }
 
-a {
+#note {
     margin: 30px;
     font-size: 15px;
     text-decoration: none;
-    color: #007ba7;
+    color: #d75b56;
     font-weight: 800;
 }

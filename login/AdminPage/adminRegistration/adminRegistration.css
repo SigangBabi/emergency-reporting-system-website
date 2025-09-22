@@ -61,6 +61,7 @@ body {
     border-radius: 5px;
     outline: none;
     background-color: white;
+    text-indent: 10px;
 }
 
 .registration-container input:not(input[type="checkbox"]):hover{
