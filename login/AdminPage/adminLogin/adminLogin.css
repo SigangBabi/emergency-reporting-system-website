@@ -1,0 +1,127 @@
+body {
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("assets/antipoloHall.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.background-blur {
+    position: fixed;
+    width: 100%;
+    top: 0%;
+    left: 0%;
+    height: 100%;
+    backdrop-filter: blur(3px);
+    background-color: rgba(48, 102, 190, 0.2);
+    z-index: -1;
+}
+
+.login-container {
+    width: 50%;
+    height: 80%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom right, #89253e, #3a6186); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-container img {
+    width: 20%;
+    margin-top: 30px;
+    margin-bottom: 0;
+    filter: brightness(0) invert(1);
+}
+
+.login-container h1{
+    color: white;
+    font-size: 30px;
+    margin: 30px 0 20px 0;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.login-container form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input:not(input[type="submit"]) {
+  border: none;  
+  border-bottom: 1px solid white; 
+  outline: none;    
+  padding: 5px;
+  margin-top: 50px;
+  width: 400px;
+  background: transparent;     
+  font-size: 16px;
+  color: white;
+}
+
+input:not(input[type="submit"])::placeholder{
+    color: white;
+}
+
+input:not(input[type="submit"]):focus{
+    border-bottom: 1px solid #3066be; 
+    transition: all 0.3s ease;
+}
+
+input:not(input[type="submit"]):focus::placeholder{
+    color: transparent;
+}
+
+.show-password{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 250px 30px 0;
+}
+
+.show-password input[type="checkbox"] {
+    margin: 0;
+    accent-color: #3066be;
+    width: 30px;
+    padding: 0;
+}
+
+.show-password p {
+    color: white;
+    font-weight: 600;
+    margin: 0;
+}
+
+button {
+    width: 400px;
+    height: 50px;
+    background-color: #3066be;
+    border: none;
+    border-radius: 10px;
+    color: #e7decc;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+button:hover{
+    color: white;
+    background-color: blue;
+    transition: all 0.3s ease;
+}
+
+button:active{
+    background-color: white;
+    color: black;
+}
+
+a {
+    margin: 30px;
+    font-size: 15px;
+    text-decoration: none;
+    color: #007ba7;
+    font-weight: 800;
+}
