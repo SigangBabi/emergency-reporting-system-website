@@ -1,3 +1,11 @@
+<?php
+
+    session_start();
+    include '../connect.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +21,20 @@
             <button href="">ABOUT</button>
             <a href="https://antipolo.ph/" class="antipolo-btn"><img src="assets/antipoloLogo.png" alt="Logo" class="antipoloLogo"/></a>
             <button href="">REPORT</button>
-            <button><a href="../LoginPage/login.html" id="login-btn">LOGIN</a></button>
+            <?php
+                if(isset($_SESSION['name'])){
+                    $name = $_SESSION['name'];
+                    $query = mysqli_query($connection, "SELECT * FROM user_info WHERE name='$name'");
+                    while($row=mysqli_fetch_array($query)){
+                        echo '<button><a href="../LoginPage/login.html" id="login-btn">PROFILE</a></button>';
+                        break;
+                    }
+                }else{
+                    echo '<button><a href="../LoginPage/login.html" id="login-btn">LOGIN</a></button>';
+                }
+            
+            ?>
+            
         </div>
     </div>
     <div class="header">
