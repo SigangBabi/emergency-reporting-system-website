@@ -1,6 +1,11 @@
 <?php
 
     include '../connect.php';
+    session_start();
+    if(isset($_SESSION['name'])){
+        header("Location: ../HomePage/homePage.php");
+        exit();
+    }
 
 ?>
 
@@ -42,9 +47,8 @@
                         $row = $verifyResult->fetch_assoc();
 
                         if (password_verify($password, $row['password'])) {
-                            session_start();
                             $_SESSION['name']= $row['name'];
-                            header("Location: ../HomePage/homePage.html");
+                            header("Location: ../HomePage/homePage.php");
                             exit();
                         }elseif(!password_verify($password, $row['password'])){
                             echo "<script>alert('Invalid Login Credentials')</script>";

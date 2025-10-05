@@ -6,11 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const slideInfo = document.querySelector('.slide-info');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-
-    function goToLogin() {
-        window.location.href = '../LoginPage/login.html';
-    }
-
+    
     function escapeHtml(str = "") {
         return String(str)
             .replace(/&/g, "&amp;")
