@@ -27,9 +27,9 @@
       <img src="../GeneralAssets/antipoloLogo.png">
     </div>
     <div class="options-container">
-      <a href="userDashboardReport.php">Report</a>
+      <a href="">Report</a>
       <a href="userDashboardSettings.php">Settings</a>
-      <a href="">Profile</a>
+      <a href="Userdashboard.php">Profile</a>
     </div>
   </div>
 
@@ -42,31 +42,20 @@
     </div>
     <div class="right-container">
       <div id="item-container" class="item-container">
-        <div class="profile-container">
-          <div class="profile-main">
-            <div class="profile-img">
-              <img src="assets/profile-icon.png">
+        <div class="report-container">
+            <h1>🚨 REPORT AN EMERGENCY 🚨</h1>
+            <p>Select the type of Emergency</p>
+            <hr>
+            <div class="top-option">
+              <a href="#" class="fire">FIRE</a>
+              <a href="#" class="flood">FLOOD RESCUE</a>
             </div>
-            <div class="profile-info">
-              <div class="informations">
-                <?php
-                  echo "<p>Name: </p>
-                        <h1>$fullName</h1>
-                        <p>Address: </p>
-                        <h1>" . (!empty($address) ? $address : "No Address Provided") . "</h1>
-                        <p>Mobile Number: </p>
-                        <h1>" . (!empty($number) ? $number : "No Mobile Number Provided") . "</h1>
-                        <p>Email: </p>
-                        <h1>$email</h1>";
-                ?>
-                
-              </div>
+            <div class="bottom-option">
+              <a href="#" class="medical">MEDICAL</a>
+              <a href="#" class="crime">CRIME</a>
+              <a href="#" class="other">OTHER</a>
             </div>
           </div>
-          <div class="update-info">
-            <h1>To Update your information <a href="userDashboardSettings.php">Click here!</a></h1>
-          </div>
-        </div>
       </div>
     </div>
   </div>

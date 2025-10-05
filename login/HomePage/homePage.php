@@ -23,11 +23,7 @@
             <?php
                 if($userLoggedIn){
                     echo '<button><a href="../ProfileMenu/Userdashboard.php" id="login-btn">REPORT</a></button>';
-                    $name = $_SESSION['name'];
-                    $query = mysqli_query($connection, "SELECT * FROM user_info WHERE name='$name'");
-                    if($row=mysqli_fetch_array($query)){
-                        echo '<button><a href="../ProfileMenu/Userdashboard.php" id="login-btn">PROFILE</a></button>';
-                    }
+                    echo '<button><a href="../ProfileMenu/Userdashboard.php" id="login-btn">PROFILE</a></button>';
                 }else{
                     echo '<button><a href="../LoginPage/login.php" id="login-btn">REPORT</a></button>';
                     echo '<button><a href="../LoginPage/login.php" id="login-btn">LOGIN</a></button>';
