@@ -32,13 +32,13 @@
     <div class="left-container">
       <div class="img-elements">
         <img src="assets/side-poster.png" class="background-img">
-        <a href="../HomePage/homePage.html"><img src="../GeneralAssets/logo.jpeg"></a>
+        <a href="../HomePage/homePage.php"><img src="../GeneralAssets/logo.jpeg"></a>
       </div>
     </div>
     <div class="right-container">
       <div id="item-container" class="item-container">
         <div class="settings-container">
-            <form action="" method="POST">
+            <form action="userDashboardSettings.php" method="POST">
               <div class="change-profile">
                 <img src="assets/profile-icon.png">
                   <input type="file" accept="image/*">
@@ -46,19 +46,19 @@
               <div class="change-information">
                 <div class="information-field">
                   <label for="name">Name:</label>
-                  <input name="name" type="text" name="fullName">
+                  <input name="name" type="text" required>
                   <label for="address">Address:</label>
-                  <input name="address" type="text" name="address">
+                  <input name="address" type="text" name="address" required>
                   <label for="number">Mobile Number:</label>
-                  <input name="number" type="tel" pattern="[0-9]{11}" name="number">
+                  <input name="number" type="tel" pattern="[0-9]{11}" name="number" required>
                   <label for="email">Email:</label>
-                  <input name="email" type="email" name="email">
+                  <input name="email" type="email" name="email" required>
                   <input type="submit" name="submit">
                 </div>
                 <div class="logout">
                   <div>
                     <img src="assets/dashboard.png">
-                    <a href="#">Back to Dashboard</a>
+                    <a href="../HomePage/homePage.php">Back to Dashboard</a>
                   </div>
                   <div>
                     <img src="assets/creds.png">
@@ -66,7 +66,7 @@
                   </div>
                   <div>
                     <img src="assets/logout.png">
-                    <a href="#">Logout</a>
+                    <a href="logout.php">Logout</a>
                   </div>
                 </div>
               </div>
@@ -77,7 +77,7 @@
             <?php
             
                 if (isset($_POST['submit'])) {
-                  $newName = $_POST['fullName'];
+                  $newName = $_POST['name'];
                   $newAddress = $_POST['address'];
                   $newNumber = $_POST['number'];
                   $newEmail = $_POST['email'];
@@ -86,7 +86,7 @@
                     if ($connection->query($updateQuery) === TRUE) {
                         $_SESSION['name'] = $newName;
                         header("location: userDashboardSettings.php?status=success");
-                        echo "<script> location.reload(); </script>";
+                        
                     } else {
                         header("location: userDashboardSettings.php?status=error");
                     }

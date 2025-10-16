@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
       text: 'Information Updated Successfully 🎉',
       confirmButtonColor: '#007BFF'
     }).then(() =>
-        window.location.href = "../LoginPage/login.php");
+        window.location.href = "Userdashboard.php");
   } else if (status === "error") {
     alert("Something went wrong. Please try again.");
   }

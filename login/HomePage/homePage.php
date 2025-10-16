@@ -22,11 +22,11 @@
             <a href="https://antipolo.ph/" class="antipolo-btn"><img src="assets/antipoloLogo.png" alt="Logo" class="antipoloLogo"/></a>
             <?php
                 if($userLoggedIn){
-                    echo '<button><a href="../ProfileMenu/Userdashboard.php" id="login-btn">REPORT</a></button>';
-                    echo '<button><a href="../ProfileMenu/Userdashboard.php" id="login-btn">PROFILE</a></button>';
+                    echo '<button onclick="location.href=\'../ProfileMenu/UserdashboardReport.php\'">REPORT</button>';
+                    echo '<button onclick="location.href=\'../ProfileMenu/Userdashboard.php\'">PROFILE</a></button>';
                 }else{
-                    echo '<button><a href="../LoginPage/login.php" id="login-btn">REPORT</a></button>';
-                    echo '<button><a href="../LoginPage/login.php" id="login-btn">LOGIN</a></button>';
+                    echo '<button onclick="location.href=\'../LoginPage/login.php\'">REPORT</button>';
+                    echo '<button onclick="location.href=\'../LoginPage/login.php\'">LOGIN</button>';
                 }
             
             ?>
