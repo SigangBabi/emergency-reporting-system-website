@@ -26,6 +26,8 @@
                     <input type="text" id="fname" name="fname" placeholder="Ex. John Doe" required><br>
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" placeholder="Ex. delacrusjuan@123mail.com" required><br>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter Username" required><br>
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" placeholder="Enter Password" required><br>
                     <label for="confirm">Confirm Password:</label>
@@ -45,6 +47,7 @@
                         $userEmail = $_POST['email'];
                         $userPassword = $_POST['password'];
                         $confirmPassword = $_POST['confirm'];
+                        $username = $_POST['username'];
                         $hashedPassword = password_hash($userPassword, PASSWORD_DEFAULT);
 
                         $checkEmail = "SELECT * From user_info where email='$userEmail'";
@@ -55,8 +58,8 @@
                         }elseif($checkResult->num_rows>0){
                             echo "<p id=\"callback\">Email Already Exist!</p>";
                         }else{
-                            $insertUserInfo = "INSERT INTO user_info(email, password, name  )
-                                                VALUES ('$userEmail', '$hashedPassword', '$fullName')";
+                            $insertUserInfo = "INSERT INTO user_info(email, password, name, user_username)
+                                                VALUES ('$userEmail', '$hashedPassword', '$fullName', '$username')";
                             if($connection->query($insertUserInfo)==TRUE){
                                 header("location: register.php?status=success");
                                 exit();

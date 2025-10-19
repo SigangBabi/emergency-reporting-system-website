@@ -62,7 +62,7 @@
                   </div>
                   <div>
                     <img src="assets/creds.png">
-                    <a href="#">Change Login Credentials</a>
+                    <a href="changeCredentials.php">Change Login Credentials</a>
                   </div>
                   <div>
                     <img src="assets/logout.png">
@@ -101,6 +101,6 @@
     </div>
   </div>
   <div id="php-status" data-status="<?php echo isset($_GET['status']) ? $_GET['status'] : ''; ?>"></div>
-  <script src="userdashboard.js"></script>
+  <script src="settings.js"></script>
 </body>
 </html>
