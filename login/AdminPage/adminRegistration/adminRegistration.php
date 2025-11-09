@@ -17,7 +17,7 @@
     <div class="background-blur"></div>
 
     <div class="registration-container">
-        <h1>Admin Registration</h1>
+        <h1>AMRRMO Registration</h1>
         <form method="post" action="">
             <label for="name">Name:</label>
             <input type="text" name="name" id="name" placeholder="Ex. John Doe" required>
@@ -26,7 +26,7 @@
             <label for="mobile">Mobile No.:</label>
             <input type="text" name="mobile" id="mobile" placeholder="+639--" required>
             <label for="role">Role:</label>
-            <input type="text" name="role" id="role" placeholder="Ex. Administrator" required>
+            <input type="text" name="role" id="role" placeholder="Ex. Administrator or Staff" required>
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" placeholder="Ex. doejohn12" required>
             <label for="password">Password:</label>

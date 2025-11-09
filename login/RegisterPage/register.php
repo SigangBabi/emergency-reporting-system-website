@@ -14,6 +14,7 @@
     <title>Registration</title>
 </head>
 <body>
+    <?php include_once $_SERVER['DOCUMENT_ROOT'].'/Commission/login/includes/backButton.php'; ?>
     <div class="registration-container">
         <div class="manual-reg">
             <div class="title">
@@ -49,6 +50,7 @@
                         $confirmPassword = $_POST['confirm'];
                         $username = $_POST['username'];
                         $hashedPassword = password_hash($userPassword, PASSWORD_DEFAULT);
+                        
 
                         $checkEmail = "SELECT * From user_info where email='$userEmail'";
                         $checkResult = $connection->query($checkEmail);
@@ -58,6 +60,7 @@
                         }elseif($checkResult->num_rows>0){
                             echo "<p id=\"callback\">Email Already Exist!</p>";
                         }else{
+                            $userRegistered = True;
                             $insertUserInfo = "INSERT INTO user_info(email, password, name, user_username)
                                                 VALUES ('$userEmail', '$hashedPassword', '$fullName', '$username')";
                             if($connection->query($insertUserInfo)==TRUE){

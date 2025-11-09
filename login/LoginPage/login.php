@@ -3,7 +3,8 @@
     include '../connect.php';
     session_start();
     if(isset($_SESSION['name'])){
-        header("Location: ../HomePage/homePage.php");
+        // replace current history entry so Back won't return to login
+        echo '<script>location.replace("../HomePage/homePage.php");</script>';
         exit();
     }
 
@@ -20,6 +21,7 @@
     <title>Login</title>
 </head>
 <body>
+    <?php include_once $_SERVER['DOCUMENT_ROOT'].'/Commission/login/includes/backButton.php'; ?>
     <div class="background-blur"></div>
 
     <div class ="login-container">
@@ -48,7 +50,8 @@
 
                         if (password_verify($password, $row['password'])) {
                             $_SESSION['name']= $row['name'];
-                            header("Location: ../HomePage/homePage.php");
+                            // use location.replace to avoid keeping login page in history
+                            echo '<script>location.replace("../HomePage/homePage.php");</script>';
                             exit();
                         }elseif(!password_verify($password, $row['password'])){
                             echo "<script>alert('Invalid Login Credentials')</script>";

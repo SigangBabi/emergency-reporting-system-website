@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     Swal.fire({
       icon: 'success',
       title: 'Success!',
-      text: 'Information Updated Successfully 🎉',
+      text: 'Credentials Successfully Changed, please login again to proceed',
       confirmButtonColor: '#007BFF'
     }).then(() => window.location.href = "logout.php");
   } else if (status === "error") {
