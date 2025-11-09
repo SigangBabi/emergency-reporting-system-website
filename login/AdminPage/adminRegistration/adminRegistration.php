@@ -1,7 +1,7 @@
 <?php
 
     include '../../connect.php';
-
+    
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+    <?php include_once $_SERVER['DOCUMENT_ROOT'].'/Commission/login/includes/backButton.php'; ?>
     <div class="background-blur"></div>
 
     <div class="registration-container">

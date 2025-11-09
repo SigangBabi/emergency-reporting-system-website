@@ -1,8 +1,10 @@
+
 <?php
 // Lightweight back button include.
 // Behavior:
 // - If on register.php -> go to login.php
 // - If on login.php    -> go to homePage.php
+// - If on adminRegistration.php -> go to adminLogin.php
 // - Otherwise use history.back() if available, else go to homePage.php
 ?>
 <button id="site-back-button" aria-label="Go back">← Back</button>
@@ -40,6 +42,7 @@
       // adjust these paths if your structure differs
       var loginPath = '/Commission/login/LoginPage/login.php';
       var homePath  = '/Commission/login/HomePage/homePage.php';
+      var adminLoginPath = '/Commission/login/AdminPage/adminLogin/adminLogin.php';
 
       if (page === 'register.php') {
         window.location.href = loginPath;
@@ -47,6 +50,10 @@
       }
       if (page === 'login.php') {
         window.location.href = homePath;
+        return;
+      }
+      if (page === 'adminregistration.php') {
+        window.location.href = adminLoginPath;
         return;
       }
 

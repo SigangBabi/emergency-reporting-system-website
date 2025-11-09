@@ -3,7 +3,6 @@
     include '../connect.php';
     session_start();
     if(isset($_SESSION['name'])){
-        // replace current history entry so Back won't return to login
         echo '<script>location.replace("../HomePage/homePage.php");</script>';
         exit();
     }
@@ -33,7 +32,7 @@
                 <span class="email">Email / Mobile No.</span>
                 <input type="password" class="inputPass" placeholder="Password" name="password" id="password" required/>
                 <span class = "password">Password</span>
-                <button type="submit" name="login" id="login" name="login">Login</button>
+                <button type="submit" id="login" name="login">Login</button>
             </form>
 
             <?php
