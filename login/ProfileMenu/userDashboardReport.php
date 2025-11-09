@@ -20,6 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="userdashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <div class="header">
@@ -59,7 +60,9 @@
       </div>
     </div>
   </div>
-  <div id="php-location" data-location="<?php echo isset($_GET['location']) ? $_GET['location'] : ''; ?>"></div>
-  <script src="userdashboard.js"></script>
+  <div id="report-data"
+       data-name="<?php echo htmlspecialchars($fullName, ENT_QUOTES); ?>"
+       data-address="<?php echo htmlspecialchars($address, ENT_QUOTES); ?>"></div>
+  <script src="userdashboardReport.js"></script>
 </body>
 </html>

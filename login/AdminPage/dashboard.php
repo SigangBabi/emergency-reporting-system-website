@@ -1,14 +1,12 @@
 <?php
 session_start();
 
-// Prevent caching so browser won't show a cached dashboard when pressing Back
-header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
-header("Pragma: no-cache"); // HTTP 1.0.
-header("Expires: 0"); // Proxies
+header("Cache-Control: no-cache, no-store, must-revalidate"); 
+header("Pragma: no-cache"); 
+header("Expires: 0"); 
 
 include '../connect.php';
 
-// Require login — if not logged in, redirect to admin login
 if (!isset($_SESSION['admin'])) {
     header('Location: adminLogin/adminLogin.php');
     exit();
@@ -21,6 +19,16 @@ $row = mysqli_fetch_array($query);
 
 $fullName = $row['name'];
 $role = $row['role'];
+
+$getEmergencyReport = mysqli_query($connection, "SELECT * FROM emergency_reports");
+$emergencyInfo = mysqli_fetch_array($getEmergencyReport);
+$nameOfReporter = $emergencyInfo['name'];
+$locationOfEmergency = $emergencyInfo['location'];
+$typeOfEmergency = $emergencyInfo['emergency_type'];
+$timeOfReport = $emergencyInfo['time'];
+$statusOfReport = $emergencyInfo['status'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +79,45 @@ $role = $row['role'];
     <div class="dashboard-container">
       <h2>Emergency Reports</h2>
       <table>
-        <thead>
+        <?php
+          if($emergencyInfo == null){
+            echo "<h1 style='text-align: center;
+    color: red;
+    font-weight: bolder;
+    margin-top: 10px;'>There is no ongoing emergency reported!</h1>";
+          }else{
+            echo "<thead>
+          <th>No.</th>
+          <th id='name'>Name</th>
+          <th id='location'>Location</th>
+          <th id='TOE'>Emergency Type</th>
+          <th id='time'>Time</th>
+          <th id='status'>Status</th>
+          <th>Action</th>
+        </thead>
+        <tbody>
+          <td>1</td>
+          <td>$nameOfReporter</td>
+          <td id='td-location'>$locationOfEmergency</td>
+          <td>$typeOfEmergency</td>
+          <td>$timeOfReport</td>
+          <td>
+            <select id='select-status'>
+              <option value='ongoing' selected>Ongoing</option>
+              <option value='accomplished'>Accomplished</option>
+            </select>
+          </td>
+          <td>
+            <button>Delete</button>
+          </td>
+        </tbody>";
+          }
+        
+        
+        
+        
+        ?>
+        <!-- <thead>
           <th>No.</th>
           <th id="name">Name</th>
           <th id="location">Location</th>
@@ -79,8 +125,9 @@ $role = $row['role'];
           <th id="time">Time</th>
           <th id="status">Status</th>
           <th>Action</th>
-        </thead>
-        <tbody>
+        </thead> -->
+        
+        <!-- <tbody>
           <td>1</td>
           <td>Jule Andre Evaristo</td>
           <td id="td-location">MARIA SANTOS, 123 LOPEZ STREET, BARANGAY KAPITAN KILYONG, QUEZON CITY, 1101 METRO MANILA, PHILIPPINES</td>
@@ -95,7 +142,7 @@ $role = $row['role'];
           <td>
             <button>Delete</button>
           </td>
-        </tbody>
+        </tbody> -->
       </table>
     </div>
   </div> 

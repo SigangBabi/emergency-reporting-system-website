@@ -4,6 +4,13 @@
   include '../connect.php';
   $user_name = $_SESSION['name'];
 
+  $query = mysqli_query($connection, "SELECT * FROM user_info WHERE name='$user_name'");
+  $row = mysqli_fetch_array($query);
+  $oldName = $row['name'];
+  $oldEmail = $row['email'];
+  $oldNumber = $row['mobile_no'];
+  $oldAddress = $row['address'];
+
 
 ?>
 
@@ -46,13 +53,13 @@
               <div class="change-information">
                 <div class="information-field">
                   <label for="name">Name:</label>
-                  <input name="name" type="text" required>
+                  <input name="name" type="text" >
                   <label for="address">Address:</label>
-                  <input name="address" type="text" name="address" required>
+                  <input name="address" type="text" name="address" >
                   <label for="number">Mobile Number:</label>
-                  <input name="number" type="tel" pattern="[0-9]{11}" name="number" required>
+                  <input name="number" type="tel" pattern="[0-9]{11}" name="number" >
                   <label for="email">Email:</label>
-                  <input name="email" type="email" name="email" required>
+                  <input name="email" type="email" name="email" >
                   <input type="submit" name="submit">
                 </div>
                 <div class="logout">
@@ -77,10 +84,31 @@
             <?php
             
                 if (isset($_POST['submit'])) {
-                  $newName = $_POST['name'];
-                  $newAddress = $_POST['address'];
-                  $newNumber = $_POST['number'];
-                  $newEmail = $_POST['email'];
+
+                  if(empty($_POST['name'])){
+                    $newName = $oldName;
+                  }else{
+                    $newName = $_POST['name'];
+                  }
+
+                  if(empty($_POST['address'])){
+                    $newAddress = $oldAddress;
+                  }else{
+                    $newAddress = $_POST['address'];
+                  }
+
+                  if(empty($_POST['number'])){
+                    $newNumber = $oldNumber;
+                  }else{
+                    $newNumber = $_POST['number'];
+                  }
+
+                  if(empty($_POST['email'])){
+                    $newEmail = $oldEmail;
+                  }else{
+                    $newEmail = $_POST['email'];
+                  }
+                  
 
                   $updateQuery = "UPDATE user_info SET name='$newName', address='$newAddress', mobile_no='$newNumber', email='$newEmail' WHERE name='$user_name'";
                     if ($connection->query($updateQuery) === TRUE) {
