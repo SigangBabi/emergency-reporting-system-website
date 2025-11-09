@@ -2,7 +2,6 @@
 session_start();
 header('Content-Type: application/json');
 
-// Ensure DB connection (adjust path if needed)
 include '../connect.php';
 
 if (!isset($_SESSION['name'])) {
@@ -25,17 +24,17 @@ if ($location === '') {
     $location = 'Location not provided';
 }
 
-// Use existing connection
 $mysqli = $connection;
 
-// Insert report
-$stmt = $mysqli->prepare("INSERT INTO emergency_reports (`name`, `location`, `emergency_type`, `other_emergency`, `time`) VALUES (?, ?, ?, ?, NOW())");
+// Insert report with default status 'Ongoing'
+$stmt = $mysqli->prepare("INSERT INTO emergency_reports (`name`, `location`, `emergency_type`, `other_emergency`, `status`, `time`) VALUES (?, ?, ?, ?, ?, NOW())");
 if (!$stmt) {
     echo json_encode(['status' => 'error', 'message' => 'Database prepare failed (insert)']);
     exit;
 }
 
-$stmt->bind_param('ssss', $name, $location, $emergency_type, $other_emergency);
+$status = 'Ongoing';
+$stmt->bind_param('sssss', $name, $location, $emergency_type, $other_emergency, $status);
 
 if (!$stmt->execute()) {
     $stmt->close();

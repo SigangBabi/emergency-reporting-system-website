@@ -1,6 +1,17 @@
 <?php
 
   session_start();
+
+  header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+  header("Cache-Control: post-check=0, pre-check=0", false);
+  header("Pragma: no-cache");
+  header("Expires: 0");
+
+  if (!isset($_SESSION['name'])) {
+      header('Location: ../HomePage/homePage.php');
+      exit();
+  }
+
   include '../connect.php';
   $user_name = $_SESSION['name'];
   $query = mysqli_query($connection, "SELECT * FROM user_info WHERE name='$user_name'");

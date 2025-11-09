@@ -20,14 +20,6 @@ $row = mysqli_fetch_array($query);
 $fullName = $row['name'];
 $role = $row['role'];
 
-$getEmergencyReport = mysqli_query($connection, "SELECT * FROM emergency_reports");
-$emergencyInfo = mysqli_fetch_array($getEmergencyReport);
-$nameOfReporter = $emergencyInfo['name'];
-$locationOfEmergency = $emergencyInfo['location'];
-$typeOfEmergency = $emergencyInfo['emergency_type'];
-$timeOfReport = $emergencyInfo['time'];
-$statusOfReport = $emergencyInfo['status'];
-
 
 ?>
 
@@ -58,7 +50,7 @@ $statusOfReport = $emergencyInfo['status'];
       <!-- Navigation Buttons -->
       <div class="nav-btn">
         <a href="">🏠 Dashboard</a>
-        <a href="" id="open-metrics">📋 Metrics</a>
+        <a href="metrics.php">📋 Metrics</a>
         <a href="usersList.html">👥 Users</a>
         <a href="settings.html">⚙️ Settings</a>
       </div>  
@@ -79,14 +71,7 @@ $statusOfReport = $emergencyInfo['status'];
     <div class="dashboard-container">
       <h2>Emergency Reports</h2>
       <table>
-        <?php
-          if($emergencyInfo == null){
-            echo "<h1 style='text-align: center;
-    color: red;
-    font-weight: bolder;
-    margin-top: 10px;'>There is no ongoing emergency reported!</h1>";
-          }else{
-            echo "<thead>
+        <thead>
           <th>No.</th>
           <th id='name'>Name</th>
           <th id='location'>Location</th>
@@ -95,59 +80,94 @@ $statusOfReport = $emergencyInfo['status'];
           <th id='status'>Status</th>
           <th>Action</th>
         </thead>
-        <tbody>
-          <td>1</td>
-          <td>$nameOfReporter</td>
-          <td id='td-location'>$locationOfEmergency</td>
-          <td>$typeOfEmergency</td>
-          <td>$timeOfReport</td>
-          <td>
-            <select id='select-status'>
-              <option value='ongoing' selected>Ongoing</option>
-              <option value='accomplished'>Accomplished</option>
-            </select>
-          </td>
-          <td>
-            <button>Delete</button>
-          </td>
-        </tbody>";
-          }
-        
-        
-        
-        
+        <tbody id="reports-body">
+        <?php
+            $getEmergencyReport = mysqli_query($connection, "SELECT * FROM emergency_reports ORDER BY time DESC");
+            $counter = 0;
+            while($emergencyInfo = mysqli_fetch_assoc($getEmergencyReport)){
+              $counter++;
+              $id = isset($emergencyInfo['id']) ? (int)$emergencyInfo['id'] : $counter;
+              $nameOfReporter = htmlspecialchars($emergencyInfo['name'] ?? '', ENT_QUOTES);
+              $locationOfEmergency = htmlspecialchars($emergencyInfo['location'] ?? '', ENT_QUOTES);
+              $typeOfEmergency = htmlspecialchars($emergencyInfo['emergency_type'] ?? '', ENT_QUOTES);
+              $timeOfReport = htmlspecialchars($emergencyInfo['time'] ?? '', ENT_QUOTES);
+              $statusOfReport = htmlspecialchars($emergencyInfo['status'] ?? 'Ongoing', ENT_QUOTES);
+
+              echo "<tr id='report-row-{$id}'>
+                      <td>{$counter}</td>
+                      <td>{$nameOfReporter}</td>
+                      <td id='td-location'>{$locationOfEmergency}</td>
+                      <td>{$typeOfEmergency}</td>
+                      <td>{$timeOfReport}</td>
+                      <td>
+                        <select class='status-select' data-id='{$id}'>
+                          <option value='Ongoing'".($statusOfReport === 'Ongoing' ? ' selected' : '').">Ongoing</option>
+                          <option value='Accomplished'".($statusOfReport === 'Accomplished' ? ' selected' : '').">Accomplished</option>
+                        </select>
+                      </td>
+                      <td>
+                        <button class='delete-report' data-id='{$id}'>Delete</button>
+                      </td>
+                    </tr>";
+            }
         ?>
-        <!-- <thead>
-          <th>No.</th>
-          <th id="name">Name</th>
-          <th id="location">Location</th>
-          <th id="TOE">Emergency Type</th>
-          <th id="time">Time</th>
-          <th id="status">Status</th>
-          <th>Action</th>
-        </thead> -->
-        
-        <!-- <tbody>
-          <td>1</td>
-          <td>Jule Andre Evaristo</td>
-          <td id="td-location">MARIA SANTOS, 123 LOPEZ STREET, BARANGAY KAPITAN KILYONG, QUEZON CITY, 1101 METRO MANILA, PHILIPPINES</td>
-          <td>Flood</td>
-          <td>18:30:00 - 09/15/25</td>
-          <td>
-            <select id="select-status">
-              <option value="ongoing" selected>Ongoing</option>
-              <option value="accomplished">Accomplished</option>
-            </select>
-          </td>
-          <td>
-            <button>Delete</button>
-          </td>
-        </tbody> -->
-      </table>
-    </div>
-  </div> 
+          </tbody>
+        </table>
+      </div>
+  </div>
 
   <!-- External JS Script -->
+  <script>
+    // handle status change
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.status-select').forEach(function(sel){
+        sel.addEventListener('change', function(){
+          var id = this.dataset.id;
+          var status = this.value;
+          fetch('updateReportStatus.php', {
+            method: 'POST',
+            headers: {'Accept':'application/json'},
+            body: new URLSearchParams({ id: id, status: status })
+          })
+          .then(r=>r.json())
+          .then(function(j){
+            if(j.status !== 'success'){
+              alert('Failed to update status: ' + (j.message||''));
+            }
+          })
+          .catch(function(err){
+            console.error(err);
+            alert('Network error while updating status');
+          });
+        });
+      });
+
+      document.querySelectorAll('.delete-report').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          if(!confirm('Delete this report? This action cannot be undone.')) return;
+          var id = this.dataset.id;
+          fetch('deleteReport.php', {
+            method: 'POST',
+            headers: {'Accept':'application/json'},
+            body: new URLSearchParams({ id: id })
+          })
+          .then(r => r.json())
+          .then(function(j){
+            if(j.status === 'success'){
+              var row = document.getElementById('report-row-' + id);
+              if(row) row.remove();
+            } else {
+              alert('Failed to delete: ' + (j.message||''));
+            }
+          })
+          .catch(function(err){
+            console.error(err);
+            alert('Network error while deleting');
+          });
+        });
+      });
+    });
+  </script>
   <script src="dashboard.js"></script>
 </body>
 </html>

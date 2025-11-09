@@ -1,6 +1,18 @@
 <?php
-
   session_start();
+
+  // Prevent caching so Back won't show a cached protected page
+  header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+  header("Cache-Control: post-check=0, pre-check=0", false);
+  header("Pragma: no-cache");
+  header("Expires: 0");
+
+  // If not logged in, go to public homepage
+  if (!isset($_SESSION['name'])) {
+      header('Location: ../HomePage/homePage.php');
+      exit();
+  }
+
   include '../connect.php';
   $user_name = $_SESSION['name'];
 
