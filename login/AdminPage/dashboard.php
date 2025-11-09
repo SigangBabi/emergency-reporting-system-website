@@ -1,3 +1,28 @@
+<?php
+session_start();
+
+// Prevent caching so browser won't show a cached dashboard when pressing Back
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+header("Pragma: no-cache"); // HTTP 1.0.
+header("Expires: 0"); // Proxies
+
+include '../connect.php';
+
+// Require login — if not logged in, redirect to admin login
+if (!isset($_SESSION['admin'])) {
+    header('Location: adminLogin/adminLogin.php');
+    exit();
+}
+
+$userLoggedIn = true;
+$adminName = $_SESSION['admin'];
+$query = mysqli_query($connection, "SELECT * FROM admin_info WHERE name='$adminName'");
+$row = mysqli_fetch_array($query);
+
+$fullName = $row['name'];
+$role = $row['role'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +39,8 @@
     <div class="profile-container">
       <img src="assets/profile-icon.png" alt="">
       <div class="profile-name">
-        <h1>Jule Andre Evaristo</h1>
-        <p>Administrator</p>
+        <h1><?php echo $fullName?></h1>
+        <p><?php echo $role?></p>
       </div>
     </div>
     <div class="general-panel">
@@ -31,7 +56,7 @@
       </div>  
     </div>
     <div class="logout">
-      <a href="#">🚪 Logout</a>
+      <a href="logout.php">🚪 Logout</a>
     </div>
   </div>
   <div id="body-container">

@@ -48,7 +48,7 @@
           if (password_verify($password, $row['password'])) {
             // set session and replace history entry so Back won't return to login
             $_SESSION['admin'] = $row['name'];
-            echo '<script>location.replace("../dashboard.html");</script>';
+            echo '<script>location.replace("../dashboard.php");</script>';
             exit();
           } else {
             echo "<script>alert('Invalid Admin Credentials')</script>";
