@@ -67,8 +67,7 @@
 
 
         <div class="register">
-            <h3>Not Registered?</h3>
-            <a href="../RegisterPage/register.php">Click Here!</a><p>To Register Now!</p>
+            <h3>Not Registered? <a href="../RegisterPage/register.php">Click Here!</a> to Register Now!</h3>
         </div>    
         </div>
         <div class="login-img">
