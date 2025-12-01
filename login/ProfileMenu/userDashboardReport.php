@@ -73,7 +73,9 @@
   </div>
   <div id="report-data"
        data-name="<?php echo htmlspecialchars($fullName, ENT_QUOTES); ?>"
-       data-address="<?php echo htmlspecialchars($address, ENT_QUOTES); ?>"></div>
+       data-address="<?php echo htmlspecialchars($address, ENT_QUOTES); ?>"
+       data-number="<?php echo htmlspecialchars($number ?? '', ENT_QUOTES); ?>"
+       data-email="<?php echo htmlspecialchars($email ?? '', ENT_QUOTES); ?>"></div>
   <script src="userdashboardReport.js"></script>
 </body>
 </html>

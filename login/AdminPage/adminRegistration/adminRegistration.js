@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
       text: 'Your registration was successful 🎉',
       confirmButtonColor: '#007BFF'
     }).then(() =>
-        window.location.href = "../adminLogin/adminLogin.html");
+        window.location.href = "../adminLogin/adminLogin.php");
   } else if (status === "error") {
     alert("Something went wrong. Please try again.");
   }

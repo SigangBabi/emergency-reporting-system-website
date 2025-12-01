@@ -6,7 +6,7 @@
     // If admin already logged in, replace current history entry with dashboard
     if (isset($_SESSION['admin'])) {
         // use location.replace so the login page is not kept in history
-        echo '<script>location.replace("../dashboard.html");</script>';
+        echo '<script>location.replace("../dashboard.php");</script>';
         exit();
     }
 ?>

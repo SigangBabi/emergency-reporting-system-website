@@ -25,7 +25,7 @@ $role = $row['role'];
  * Adjust emergency type strings below if your DB stores different values.
  */
 $counts = [
-  'flood'   => 0,
+  'flood rescue'   => 0,
   'crime'   => 0,
   'fire'    => 0,
   'medical' => 0,
@@ -34,7 +34,7 @@ $counts = [
 
 $sql = "
   SELECT
-    SUM(CASE WHEN LOWER(emergency_type) = 'flood'   THEN 1 ELSE 0 END) AS flood,
+    SUM(CASE WHEN LOWER(emergency_type) = 'flood rescue'   THEN 1 ELSE 0 END) AS flood,
     SUM(CASE WHEN LOWER(emergency_type) = 'crime'   THEN 1 ELSE 0 END) AS crime,
     SUM(CASE WHEN LOWER(emergency_type) = 'fire'    THEN 1 ELSE 0 END) AS fire,
     SUM(CASE WHEN LOWER(emergency_type) = 'medical' THEN 1 ELSE 0 END) AS medical,
@@ -45,7 +45,7 @@ $res = mysqli_query($connection, $sql);
 if ($res) {
   $r = mysqli_fetch_assoc($res);
   if ($r) {
-    $counts['flood']   = (int)($r['flood'] ?? 0);
+    $counts['flood rescue']   = (int)($r['flood'] ?? 0);
     $counts['crime']   = (int)($r['crime'] ?? 0);
     $counts['fire']    = (int)($r['fire'] ?? 0);
     $counts['medical'] = (int)($r['medical'] ?? 0);
@@ -92,7 +92,7 @@ if ($r2) {
       <div class="nav-btn">
         <a href="dashboard.php">🏠 Dashboard</a> <!-- Dashboard link -->
         <a href="">📋 Metrics</a> <!-- Metrics link -->
-        <a href="">👥 Users</a> <!-- Users management link -->
+        <a href="usersList.html">👥 Users</a> <!-- Users management link -->
         <a href="settings.html">⚙️ Settings</a> <!-- Settings link -->
       </div>  
     </div>
@@ -114,7 +114,7 @@ if ($r2) {
         <div class="metric">
           <h3>Flood</h3>
           <p>No. of Flood reports</p>
-          <p class="count"><?php echo $counts['flood']; ?></p>
+          <p class="count"><?php echo $counts['flood rescue']; ?></p>
         </div>
       </a>
       <a href="#" id="crime">

@@ -39,6 +39,8 @@
       var path = window.location.pathname || '';
       var page = path.substring(path.lastIndexOf('/') + 1).toLowerCase();
 
+      console.log('Back button clicked on page:', path);
+
       // adjust these paths if your structure differs
       var loginPath = '/Commission/login/LoginPage/login.php';
       var homePath  = '/Commission/login/HomePage/homePage.php';
