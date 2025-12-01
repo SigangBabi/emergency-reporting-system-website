@@ -68,20 +68,6 @@
                   
                   <input type="submit" name="submit">
                 </div>
-                <div class="logout">
-                  <div>
-                    <img src="assets/dashboard.png">
-                    <a href="../HomePage/homePage.php">Back to Dashboard</a>
-                  </div>
-                  <div>
-                    <img src="assets/creds.png">
-                    <a href="#" id="change-creds">Change Login Credentials</a>
-                  </div>
-                  <div>
-                    <img src="assets/logout.png">
-                    <a href="logout.php">Logout</a>
-                  </div>
-                </div>
               </div>
             </form>
 

@@ -22,8 +22,23 @@
   $number = $row['mobile_no'];
   $email = $row['email'];
 
+/* determine image src: if DB contains binary image render data: url, if it's a path use it,
+   otherwise fallback to default asset */
+$photoSrc = 'assets/profile-icon.png';
+if (!empty($photo)) {
+    // if binary image data
+    $imgInfo = @getimagesizefromstring($photo);
+    if ($imgInfo && isset($imgInfo['mime'])) {
+        $photoSrc = 'data:' . $imgInfo['mime'] . ';base64,' . base64_encode($photo);
+    } else {
+        // if stored value appears to be a path or URL, use it
+        $maybePath = trim($photo);
+        if ($maybePath !== '' && (strpos($maybePath, '/') !== false || file_exists(__DIR__ . '/' . $maybePath))) {
+            $photoSrc = $maybePath;
+        }
+    }
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,8 +71,24 @@
         <div class="profile-container">
           <div class="profile-main">
             <div class="profile-img">
-              <img src="assets/profile-icon.png">
+              <img src="<?php echo htmlspecialchars($photoSrc, ENT_QUOTES); ?>" alt="Profile">
+
+              <div class="logout">
+                  <div>
+                    <img src="assets/dashboard.png">
+                    <a href="../HomePage/homePage.php">Back to Dashboard</a>
+                  </div>
+                  <div>
+                    <img src="assets/creds.png">
+                    <a href="changeCredentials.php">Change Login Credentials</a>
+                  </div>
+                  <div>
+                    <img src="assets/logout.png">
+                    <a href="logout.php">Logout</a>
+                  </div>
+              </div>
             </div>
+            
             <div class="profile-info">
               <div class="informations">
                 <?php
