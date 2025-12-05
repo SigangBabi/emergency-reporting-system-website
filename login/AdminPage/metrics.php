@@ -19,6 +19,15 @@ $row = mysqli_fetch_array($query);
 
 $fullName = $row['name'];
 $role = $row['role'];
+$photo = $row['photo'];
+
+$photoSrc = 'assets/profile-icon.png';
+if (!empty($photo)) {
+    $imgInfo = @getimagesizefromstring($photo);
+    if ($imgInfo && isset($imgInfo['mime'])) {
+        $photoSrc = 'data:' . $imgInfo['mime'] . ';base64,' . base64_encode($photo);
+    }
+}
 
 /**
  * Aggregate counts for emergency types and users.
@@ -78,7 +87,7 @@ if ($r2) {
   <div class="side-panel">
     <!-- Profile section -->
     <div class="profile-container">
-      <img src="assets/profile-icon.png" alt=""> <!-- Profile icon -->
+      <img src="<?php echo htmlspecialchars($photoSrc, ENT_QUOTES); ?>" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
       <div class="profile-name">
         <h1><?php echo htmlspecialchars($fullName); ?></h1> <!-- Admin name -->
         <p><?php echo htmlspecialchars($role); ?></p> <!-- User role -->
@@ -92,8 +101,8 @@ if ($r2) {
       <div class="nav-btn">
         <a href="dashboard.php">🏠 Dashboard</a> <!-- Dashboard link -->
         <a href="">📋 Metrics</a> <!-- Metrics link -->
-        <a href="usersList.html">👥 Users</a> <!-- Users management link -->
-        <a href="settings.html">⚙️ Settings</a> <!-- Settings link -->
+        <a href="usersList.php">👥 Users</a> <!-- Users management link -->
+        <a href="settings.php">⚙️ Settings</a> <!-- Settings link -->
       </div>  
     </div>
 

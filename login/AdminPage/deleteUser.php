@@ -16,14 +16,14 @@ if ($id <= 0) {
     exit;
 }
 
-$stmt = $connection->prepare("DELETE FROM emergency_reports WHERE id = ?");
+$stmt = $connection->prepare("DELETE FROM user_info WHERE id = ?");
 if (!$stmt) {
     echo json_encode(['status' => 'error', 'message' => 'DB prepare failed']);
     exit;
 }
 $stmt->bind_param('i', $id);
 if ($stmt->execute()) {
-    echo json_encode(['status' => 'success', 'message' => 'Report deleted', 'id' => $id]);
+    echo json_encode(['status' => 'success', 'message' => 'User deleted', 'id' => $id]);
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Delete failed']);
 }

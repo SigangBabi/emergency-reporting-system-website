@@ -19,6 +19,15 @@ $row = mysqli_fetch_array($query);
 
 $fullName = $row['name'];
 $role = $row['role'];
+$photo = $row['photo'];
+
+$photoSrc = 'assets/profile-icon.png';
+if (!empty($photo)) {
+    $imgInfo = @getimagesizefromstring($photo);
+    if ($imgInfo && isset($imgInfo['mime'])) {
+        $photoSrc = 'data:' . $imgInfo['mime'] . ';base64,' . base64_encode($photo);
+    }
+}
 
 
 ?>
@@ -37,7 +46,7 @@ $role = $row['role'];
   <!-- Side Panel -->
   <div class="side-panel">
     <div class="profile-container">
-      <img src="assets/profile-icon.png" alt="">
+      <img src="<?php echo htmlspecialchars($photoSrc, ENT_QUOTES); ?>" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
       <div class="profile-name">
         <h1><?php echo $fullName?></h1>
         <p><?php echo $role?></p>
@@ -51,8 +60,8 @@ $role = $row['role'];
       <div class="nav-btn">
         <a href="">🏠 Dashboard</a>
         <a href="metrics.php">📋 Metrics</a>
-        <a href="usersList.html">👥 Users</a>
-        <a href="settings.html">⚙️ Settings</a>
+        <a href="usersList.php">👥 Users</a>
+        <a href="settings.php">⚙️ Settings</a>
       </div>  
     </div>
     <div class="logout">
@@ -90,14 +99,17 @@ $role = $row['role'];
               $nameOfReporter = htmlspecialchars($emergencyInfo['name'] ?? '', ENT_QUOTES);
               $locationOfEmergency = htmlspecialchars($emergencyInfo['location'] ?? '', ENT_QUOTES);
               $typeOfEmergency = htmlspecialchars($emergencyInfo['emergency_type'] ?? '', ENT_QUOTES);
+              $otherEmergency = htmlspecialchars($emergencyInfo['other_emergency'] ?? '', ENT_QUOTES);
               $timeOfReport = htmlspecialchars($emergencyInfo['time'] ?? '', ENT_QUOTES);
               $statusOfReport = htmlspecialchars($emergencyInfo['status'] ?? 'Ongoing', ENT_QUOTES);
+
+              $isOtherEmergency = ($typeOfEmergency === "Other") ? $otherEmergency : $typeOfEmergency;
 
               echo "<tr id='report-row-{$id}'>
                       <td>{$counter}</td>
                       <td>{$nameOfReporter}</td>
                       <td id='td-location'>{$locationOfEmergency}</td>
-                      <td>{$typeOfEmergency}</td>
+                      <td>{$isOtherEmergency}</td>
                       <td>{$timeOfReport}</td>
                       <td>
                         <select class='status-select' data-id='{$id}'>
@@ -106,7 +118,7 @@ $role = $row['role'];
                         </select>
                       </td>
                       <td>
-                        <button class='delete-report' data-id='{$id}'>Delete</button>
+                        <button class='delete-report' data-id='{$id}'>See Details</button>
                       </td>
                     </tr>";
             }
@@ -115,59 +127,6 @@ $role = $row['role'];
         </table>
       </div>
   </div>
-
-  <!-- External JS Script -->
-  <script>
-    // handle status change
-    document.addEventListener('DOMContentLoaded', function(){
-      document.querySelectorAll('.status-select').forEach(function(sel){
-        sel.addEventListener('change', function(){
-          var id = this.dataset.id;
-          var status = this.value;
-          fetch('updateReportStatus.php', {
-            method: 'POST',
-            headers: {'Accept':'application/json'},
-            body: new URLSearchParams({ id: id, status: status })
-          })
-          .then(r=>r.json())
-          .then(function(j){
-            if(j.status !== 'success'){
-              alert('Failed to update status: ' + (j.message||''));
-            }
-          })
-          .catch(function(err){
-            console.error(err);
-            alert('Network error while updating status');
-          });
-        });
-      });
-
-      document.querySelectorAll('.delete-report').forEach(function(btn){
-        btn.addEventListener('click', function(){
-          if(!confirm('Delete this report? This action cannot be undone.')) return;
-          var id = this.dataset.id;
-          fetch('deleteReport.php', {
-            method: 'POST',
-            headers: {'Accept':'application/json'},
-            body: new URLSearchParams({ id: id })
-          })
-          .then(r => r.json())
-          .then(function(j){
-            if(j.status === 'success'){
-              var row = document.getElementById('report-row-' + id);
-              if(row) row.remove();
-            } else {
-              alert('Failed to delete: ' + (j.message||''));
-            }
-          })
-          .catch(function(err){
-            console.error(err);
-            alert('Network error while deleting');
-          });
-        });
-      });
-    });
-  </script>
   <script src="dashboard.js"></script>
 </body>
 </html>

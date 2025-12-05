@@ -1,5 +1,5 @@
 body{
-    background: linear-gradient(to right, rgba(0, 155, 214), rgba(255, 223, 34)); 
+
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     justify-content: center;
@@ -10,9 +10,10 @@ body{
 
 .registration-container{
     display: flex;
-    background: linear-gradient(to left, rgba(0, 155, 214), rgba(255, 223, 34)); 
+    background-color: rgba(0, 155, 214);
     width: 90rem;
     height: 50rem;
+    border-radius: 10px;
 }
 
 .manual-reg{

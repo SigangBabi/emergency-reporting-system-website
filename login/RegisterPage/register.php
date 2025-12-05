@@ -76,9 +76,7 @@
                 ?>
 
             </div>
-            <div class="back-to-login">
-                    <h5>Already have an account? <a href="../LoginPage/login.html">Click Here</a> to go back</h5>
-            </div>
+            
         </div>
         <div class="other">
             <h1>Be <span class="prep">Prepared.</span> <br>Stay <span class="connect">Connected.</span> <br>Respond <span class="fast">Faster.</span></h1>

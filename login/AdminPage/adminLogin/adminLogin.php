@@ -22,8 +22,8 @@
   <div class="background-blur"></div>
 
   <div class="login-container">
-    <img src="assets/profile-icon.png" alt="">
-    <h1>ADMIN LOGIN</h1>
+    <img src="../../GeneralAssets/LOGO.png" alt="">
+    <h1>STAFF/ADMIN LOGIN</h1>
     <form action="" method="post">
       <input type="text" name="username" id="username" placeholder="Username" required>
       <input type="password" name="password" id="password" placeholder="Password" required>
